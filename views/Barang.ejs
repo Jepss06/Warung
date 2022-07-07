@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form action="/cariBarang" method="post">
+        <div class="col-md-4 mt-4">
+          <label for="Jenis Barang" class="form-label"
+            >Cari barang</label
+          >
+          <input
+            type="text"
+            class=""
+            id="barang"
+            name="cari"
+          />
+          <input type="submit" class="btn btn-primary" value="cari">
+        </div>
+    </form>
+      <div class="row">
+        <div class="col-md-6">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm mt-3"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Tambah
+          </button>
+          <table class="table table-bordered border-primary mt-3">
+            <tr>
+              <th>id</th>
+              <th>nama</th>
+              <th>harga</th>
+              <th>jumlah</th>
+              <th>action</th>
+            </tr>
+            <% for(let barang of barangs){ %>
+            <tr>
+              <td><%= barang.Id_barang %></td>
+              <td><%= barang.Nama_barang %></td>
+              <td><%= barang.harga %></td>
+              <td><%= barang.jumlah %></td>
+              <td>
+                <a
+                  href="/pilih/<%= barang.Id_barang %>"
+                  class="badge text-bg-success"
+                  >pilih</a
+                >
+              </td>
+              <% } %>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-6 mt-3">
+          <h3> Yang Dipilih:</h3>
+          <table class="table table-bordered border-primary mt-3">
+            <tr>
+              <th>id</th>
+              <th>nama</th>
+              <th>harga</th>
+              <th>jumlah</th>
+              <th>action</th>
+            </tr>
+            <% for(let barang1 of barangs1){ %>
+            <tr>
+              <td><%= barang1.Id_barang %></td>
+              <td><%= barang1.Nama_barang %></td>
+              <td><%= barang1.harga %></td>
+              <td><%= barang1.jumlah %></td>
+              <td><a
+                href="/cancel/<%= barang1.id_transaksi %>"
+                class="badge text-bg-danger"
+                >batal</a
+              ></td>
+              <% } %>
+            </tr>
+            <% for(let barang2 of barangs2){ %>
+            <tr>
+              <td colspan="2">total</td>
+              <td colspan="2"><%= barang2.value1 %></td>
+              <td>
+                <a href="/selesai" class="badge text-bg-info">selesai</a>
+              </td>
+              <% } %>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="/tambahBarang" method="post">
+            <% for(barang3 of barangs3){ %>
+              <input type="text" hidden name="id_jenis" value="<%= barang3.Id_JenisBarang %>">
+            <% } %>
+            <div class="mb-3 mt-4">
+              <label for="Nama Barang" class="form-label"
+                >Nama Barang</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="nama"
+                name="nama"
+              />
+              <div id="namaHelp" class="form-text">Masukan Nama barang</div>
+            </div>
+            <div class="mb-3 mt-4">
+              <label for="harga Barang" class="form-label"
+                >Harga Barang</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="harga"
+                name="harga"
+              />
+              <div id="namaHelp" class="form-text">Masukan Harga barang</div>
+            </div>
+            <div class="mb-3 mt-4">
+              <label for="jumlah Barang" class="form-label"
+                >jumlah Barang</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="jumlah"
+                name="jumlah"
+              />
+              <div id="namaHelp" class="form-text">Masukan jumlah barang</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
